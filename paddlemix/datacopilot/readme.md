@@ -9,6 +9,7 @@
 </div>
 
 </details>
+
 # DataCopilot 使用教程
 
 ## 一、简介
@@ -85,6 +86,16 @@ def info(dataset: MMDataset) -> None: ...
 dataset = MMDataset.from_json('path/to/your/dataset.json')
 ```
 
+使用 `MMDataset.load_jsonl` 方法从 JSONL 文件中加载数据：
+```python
+dataset = MMDataset.load_jsonl('path/to/your/dataset.jsonl')
+```
+
+使用 `MMDataset.from_h5` 方法从 h5 文件中加载数据：
+```python
+dataset = MMDataset.from_h5('path/to/your/dataset.h5')
+```
+
 ### 2. 查看数据
 使用 info 和 head 方法查看数据集的基本信息和前几个样本：
 ```python
@@ -124,6 +135,15 @@ filtered_dataset = dataset.filter(is_valid_sample).nonempty()  # 返回过滤后
 augmented_dataset.export_json('path/to/your/output_dataset.json')
 ```
 
+使用 export_jsonl 方法将处理后的数据集导出为 JSONL 文件：
+```python
+augmented_dataset.export_jsonl('path/to/your/output_dataset.jsonl')
+```
+
+使用 export_h5 方法将处理后的数据集导出为 h5 文件：
+```python
+augmented_dataset.export_h5('path/to/your/output_dataset.h5')
+```
 ## 六、高级操作
 ### 1. 自定义 Schema
 通过定义 SCHEMA 来指定数据集的字段和类型：
@@ -143,10 +163,7 @@ custom_dataset = MMDataset.from_json('path/to/your/dataset.json', schema=schema)
 使用 batch 方法将数据集中的样本按批次处理，适用于需要批量操作的情况：
 ```python
 batch_size = 32
-batched_dataset = dataset.batch(batch_size)
-for batch in batched_dataset:
-    # 对每个批次进行处理
-    pass
+batched_dataset = dataset[i: i + batch_size]
 ```
 
 ### 3. 数据采样
@@ -156,6 +173,15 @@ shuffled_dataset = dataset.shuffle()
 sampled_dataset = dataset.sample(10)  # 随机抽取10个样本
 ```
 
+###  4. 链式调用
+```python
+ MMDataset.from_json(orig_path)
+        .sanitize(schema=SCHEMA.MM, max_workers=8, progress=True, )
+        .map(functools.partial(ops.convert_schema, out_schema=SCHEMA.MIX), max_workers=8)
+        .filter(filter_text_token, max_workers=8, progress=True, order=True)
+        .nonempty()
+        .export_json(new_path)
+```
 
 ## 七、使用案例
 1. 导入导出  
