@@ -9,9 +9,13 @@
 </div>
 
 </details>
-
 # DataCopilot 使用教程
 
+<<<<<<< HEAD
+# DataCopilot 使用教程
+
+=======
+>>>>>>> 679b487401c6588d21d30032fa46b22da078ad79
 ## 一、简介
 **DataCopilot** 是 **PaddleMIX** 提供的多模态数据处理工具箱，旨在帮助开发者高效地进行数据预处理、增强和转换等操作。通过 **DataCopilot**，你可以以低代码量的方式实现数据的基本操作，从而加速模型训练和推理的过程。
 
@@ -86,6 +90,7 @@ def info(dataset: MMDataset) -> None: ...
 dataset = MMDataset.from_json('path/to/your/dataset.json')
 ```
 
+<<<<<<< HEAD
 使用 `MMDataset.load_jsonl` 方法从 JSONL 文件中加载数据：
 ```python
 dataset = MMDataset.load_jsonl('path/to/your/dataset.jsonl')
@@ -96,6 +101,8 @@ dataset = MMDataset.load_jsonl('path/to/your/dataset.jsonl')
 dataset = MMDataset.from_h5('path/to/your/dataset.h5')
 ```
 
+=======
+>>>>>>> 679b487401c6588d21d30032fa46b22da078ad79
 ### 2. 查看数据
 使用 info 和 head 方法查看数据集的基本信息和前几个样本：
 ```python
@@ -135,6 +142,7 @@ filtered_dataset = dataset.filter(is_valid_sample).nonempty()  # 返回过滤后
 augmented_dataset.export_json('path/to/your/output_dataset.json')
 ```
 
+<<<<<<< HEAD
 使用 export_jsonl 方法将处理后的数据集导出为 JSONL 文件：
 ```python
 augmented_dataset.export_jsonl('path/to/your/output_dataset.jsonl')
@@ -144,6 +152,8 @@ augmented_dataset.export_jsonl('path/to/your/output_dataset.jsonl')
 ```python
 augmented_dataset.export_h5('path/to/your/output_dataset.h5')
 ```
+=======
+>>>>>>> 679b487401c6588d21d30032fa46b22da078ad79
 ## 六、高级操作
 ### 1. 自定义 Schema
 通过定义 SCHEMA 来指定数据集的字段和类型：
@@ -163,7 +173,14 @@ custom_dataset = MMDataset.from_json('path/to/your/dataset.json', schema=schema)
 使用 batch 方法将数据集中的样本按批次处理，适用于需要批量操作的情况：
 ```python
 batch_size = 32
+<<<<<<< HEAD
 batched_dataset = dataset[i: i + batch_size]
+=======
+batched_dataset = dataset.batch(batch_size)
+for batch in batched_dataset:
+    # 对每个批次进行处理
+    pass
+>>>>>>> 679b487401c6588d21d30032fa46b22da078ad79
 ```
 
 ### 3. 数据采样
@@ -173,6 +190,7 @@ shuffled_dataset = dataset.shuffle()
 sampled_dataset = dataset.sample(10)  # 随机抽取10个样本
 ```
 
+<<<<<<< HEAD
 ###  4. 链式调用
 ```python
  MMDataset.from_json(orig_path)
@@ -182,6 +200,8 @@ sampled_dataset = dataset.sample(10)  # 随机抽取10个样本
         .nonempty()
         .export_json(new_path)
 ```
+=======
+>>>>>>> 679b487401c6588d21d30032fa46b22da078ad79
 
 ## 七、使用案例
 1. 导入导出  
